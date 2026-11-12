@@ -2,47 +2,59 @@
 
 MedRAG-QA is an extractive medical question-answering research prototype based on MedQuAD. It retrieves medical passages using dense embeddings and label-conditioned ranking, then returns the curated answer associated with the highest-ranked document. Optional graph-neighbor expansion is evaluated separately.
 
-## 1. Structure
+## Structure
+
+Main source files, cached artifacts, and representative result files are shown below. Additional result files and supporting documents are omitted for readability.
 
 ```text
 
 MadRAG-QA/
 |-- 01_data/
-|   `-- medquad.csv                    # Source question-answer dataset
+|   └── medquad.csv                     # Source medical QA dataset
 |-- 02_code/
-|   |-- requirements.txt               # Python dependencies
-|   |-- config.py                      # Paths and default parameters
-|   |-- data_prep.py                    # Corpus loading and cleaning
-|   |-- embedder.py                     # BGE-M3 document/query embeddings
-|   |-- graph_builder.py               # Entity similarity graph
-|   |-- retriever.py                   # Dense retrieval and graph/RRF fusion
-|   |-- qa_pipeline.py                 # Extractive or optional LLM answers
-|   |-- metrics.py                     # Retrieval and answer metrics
-|   |-- chat.py                        # Interactive terminal interface
-|   |-- web_app.py                     # Flask server and API
+|   |-- requirements.txt                # Python dependencies
+|   |-- config.py                       # Paths and parameters
+|   |-- data_prep.py                    # Data cleaning and corpus preparation
+|   |-- embedder.py                     # BGE-M3 embedding wrapper
+|   |-- graph_builder.py                # Entity similarity graph
+|   |-- retriever.py                    # Dense search and graph/RRF fusion
+|   |-- qa_pipeline.py                  # Answer generation
+|   |-- metrics.py                      # Evaluation metrics
+|   |-- chat.py                         # Terminal QA interface
+|   |-- web_app.py                      # Flask web server and API
 |   |-- web/
-|   |   |-- index.html                 # Web interface
-|   |   |-- style.css                  # Interface styles
-|   |   `-- app.js                     # Browser interaction and API calls
-|   |-- run_experiment.py              # Main evaluation
-|   |-- run_ablation.py                # Graph versus dense-only comparison
-|   |-- run_review_experiments.py      # Development/held-out evaluation
-|   |-- run_sensitivity.py             # Retrieval parameter experiments
-|   |-- run_chunksize_sensitivity.py   # Passage-length experiments
-|   |-- run_corpus_scaling.py          # Corpus-size experiments
-|   |-- run_heldout_extensions.py      # Passage/encoder held-out experiments
-|   |-- run_latency.py                 # Pipeline timing
-|   |-- run_scaling_latency.py         # Timing across corpus sizes
-|   |-- run_web_device_latency.py      # Flask test-client CPU/GPU timing
-|   |-- run.ps1                       # PowerShell experiment launcher
-|   |-- run.sh                        # Bash experiment launcher
-|   |-- artifacts/                    # Cached corpus, embeddings, and graph
-|   |-- artifacts_ext/                # Passage-length/encoder caches
-|   `-- artifacts_scale/              # Corpus-size caches
-|-- 03_result/                        # Saved CSV results and JSON settings
-|-- audit_medrag/
-|   `-- REPORT_TH.md                  # Thai audit report (other files omitted)
-└── run_web.bat                       # Windows web launcher
+|   |   |-- index.html                  # Web page
+|   |   |-- style.css                   # Page styles
+|   |   └── app.js                      # Browser interaction
+|   |-- run_experiment.py               # Main evaluation
+|   |-- run_ablation.py                 # Dense-only versus graph fusion
+|   |-- run_review_experiments.py       # Development and held-out evaluation
+|   |-- run_sensitivity.py              # Retrieval parameter experiments
+|   |-- run_chunksize_sensitivity.py    # Passage-length experiments
+|   |-- run_corpus_scaling.py           # Corpus-size experiments
+|   |-- run_heldout_extensions.py       # Passage-length and encoder comparisons
+|   |-- run_latency.py                  # Pipeline timing
+|   |-- run_scaling_latency.py          # Timing across corpus sizes
+|   |-- run_web_device_latency.py       # Flask test-client CPU/GPU timing
+|   |-- artifacts/
+|   |   |-- corpus.parquet              # Cleaned corpus
+|   |   |-- doc_embeddings.npy          # Document vectors
+|   |   |-- entity_embeddings.npy       # Entity-name vectors
+|   |   |-- entity_names.json           # Entity names
+|   |   |-- graph.pkl                   # Saved entity graph
+|   |   └── meta.json                   # Cache configuration
+|   |-- artifacts_ext/                  # Passage-length and encoder caches
+|   └── artifacts_scale/                # Corpus-size caches
+|-- 03_result/
+|   |-- result-rag.csv                  # Per-question evaluation results
+|   |-- result-rag-summary.csv          # Aggregate evaluation metrics
+|   |-- result-rag-comparison.csv       # Dense-only and graph comparison
+|   |-- result-review-heldout.csv       # Held-out retrieval results
+|   |-- result-review-paired-tests.csv  # Paired statistical comparisons
+|   └── result-review-metadata.json     # Review experiment settings
+|-- audit_medrag_alignment.py           # Historical audit utility
+|-- consolidate_medrag.py               # Historical file-management utility
+└── run_web.bat                         # Windows web launcher
 
 ```
 
