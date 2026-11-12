@@ -10,7 +10,6 @@ Main source files, cached artifacts, and representative result files are shown b
 
 MadRAG-QA/
 |-- 01_data/
-|   └── medquad.csv                     # Source medical QA dataset
 |-- 02_code/
 |   |-- requirements.txt                # Python dependencies
 |   |-- config.py                       # Paths and parameters
