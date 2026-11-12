@@ -2,6 +2,50 @@
 
 MedRAG-QA is an extractive medical question-answering research prototype based on MedQuAD. It retrieves medical passages using dense embeddings and label-conditioned ranking, then returns the curated answer associated with the highest-ranked document. Optional graph-neighbor expansion is evaluated separately.
 
+## 1. Structure
+
+```text
+
+MadRAG-QA/
+|-- 01_data/
+|   `-- medquad.csv                    # Source question-answer dataset
+|-- 02_code/
+|   |-- requirements.txt               # Python dependencies
+|   |-- config.py                      # Paths and default parameters
+|   |-- data_prep.py                    # Corpus loading and cleaning
+|   |-- embedder.py                     # BGE-M3 document/query embeddings
+|   |-- graph_builder.py               # Entity similarity graph
+|   |-- retriever.py                   # Dense retrieval and graph/RRF fusion
+|   |-- qa_pipeline.py                 # Extractive or optional LLM answers
+|   |-- metrics.py                     # Retrieval and answer metrics
+|   |-- chat.py                        # Interactive terminal interface
+|   |-- web_app.py                     # Flask server and API
+|   |-- web/
+|   |   |-- index.html                 # Web interface
+|   |   |-- style.css                  # Interface styles
+|   |   `-- app.js                     # Browser interaction and API calls
+|   |-- run_experiment.py              # Main evaluation
+|   |-- run_ablation.py                # Graph versus dense-only comparison
+|   |-- run_review_experiments.py      # Development/held-out evaluation
+|   |-- run_sensitivity.py             # Retrieval parameter experiments
+|   |-- run_chunksize_sensitivity.py   # Passage-length experiments
+|   |-- run_corpus_scaling.py          # Corpus-size experiments
+|   |-- run_heldout_extensions.py      # Passage/encoder held-out experiments
+|   |-- run_latency.py                 # Pipeline timing
+|   |-- run_scaling_latency.py         # Timing across corpus sizes
+|   |-- run_web_device_latency.py      # Flask test-client CPU/GPU timing
+|   |-- run.ps1                       # PowerShell experiment launcher
+|   |-- run.sh                        # Bash experiment launcher
+|   |-- artifacts/                    # Cached corpus, embeddings, and graph
+|   |-- artifacts_ext/                # Passage-length/encoder caches
+|   `-- artifacts_scale/              # Corpus-size caches
+|-- 03_result/                        # Saved CSV results and JSON settings
+|-- audit_medrag/
+|   `-- REPORT_TH.md                  # Thai audit report (other files omitted)
+└── run_web.bat                       # Windows web launcher
+
+```
+
 ## Web Application
 
 ![MedRAG-QA web application](web_app_MedRAG.png)
