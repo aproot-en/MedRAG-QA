@@ -58,12 +58,6 @@ MadRAG-QA/
 
 ```
 
-## Web Application
-
-![MedRAG-QA web application](web_app_MedRAG.png)
-
-The Flask interface supports medical questions, retrieved evidence, and extractive answers. The optional LLM path is not part of the reported evaluation.
-
 ## How It Works
 
 1. Clean MedQuAD and index `focus_area + ". " + answer` (excluding the question field).
@@ -126,6 +120,13 @@ python 02_code/run_review_experiments.py
 ```
 
 > Verify these paths against the files published in this repository. Re-running experiments may overwrite saved results or caches.
+
+
+## Web Application
+
+![MedRAG-QA web application](web_app_MedRAG.png)
+
+The Flask interface supports medical questions, retrieved evidence, and extractive answers. The optional LLM path is not part of the reported evaluation.
 
 ## Limitations
 
