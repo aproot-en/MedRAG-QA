@@ -1,7 +1,5 @@
 # MedRAG-QA
 
-**Medical question retrieval using BGE-M3, focus-area labels, and lightweight graph expansion.**
-
 MedRAG-QA is an extractive medical question-answering research prototype based on MedQuAD. It retrieves medical passages using dense embeddings and label-conditioned ranking, then returns the curated answer associated with the highest-ranked document. Optional graph-neighbor expansion is evaluated separately.
 
 ## Web Application
