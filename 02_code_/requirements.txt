@@ -1,0 +1,13 @@
+pandas
+numpy
+scikit-learn
+scipy
+networkx
+sentence-transformers
+transformers
+torch
+faiss-cpu
+rouge-score
+tqdm
+pyarrow
+flask
